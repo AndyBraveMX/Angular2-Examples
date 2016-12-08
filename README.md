@@ -1,4 +1,4 @@
-# AngularExamples
+# Angular2 Examples
 My learning path of Angular, since creating a project to consume REST services
 
 In this Repo you will find a project which:
