@@ -1,0 +1,9 @@
+<h1>{{title}}</h1>
+<div>
+	<label>Expression: </label>
+	<input [(ngModel)]="expression" placeholder="7+5*2" #bid>
+<div>
+	<button (click)='eval(bid.value)'>Evaluate</button>
+</div>
+<label id="res">Resultado:</label>
+<h2>{{res}}</h2>
