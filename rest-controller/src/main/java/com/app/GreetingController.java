@@ -6,6 +6,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +22,9 @@ public class GreetingController {
 		return new Greeting(counter.incrementAndGet(), String.format(template, name));
 	}
 
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping("/evaluate")
-	public String evaluate(@RequestParam(value = "expression") String expression) {
+	public Greeting evaluate(@RequestParam(value = "expression") String expression) {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByName("js");
 		Object result = null;
@@ -32,6 +34,6 @@ public class GreetingController {
 			// Do something with the exception
 		}
 		//return new Greeting(counter.incrementAndGet(), String.format(template, result));
-		return result.toString();
+		return new Greeting(counter.incrementAndGet(), String.format(template, result.toString()));
 	}
 }

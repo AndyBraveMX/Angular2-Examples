@@ -8,30 +8,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var calculator_service_1 = require('./calculator.service');
+var core_1 = require("@angular/core");
+var calculator_service_1 = require("./calculator.service");
+var http_1 = require("@angular/http");
 var AppComponent = (function () {
     //Inyectamos el servicio, en este caso es solo un metodo el que se esta separando y se pudo invocar el metodo evaluate desde este componente
     //sin embargo para fines demostrativos y de práctica se separa en un servicio
-    function AppComponent(calculatorService) {
+    function AppComponent(http, calculatorService) {
+        this.http = http;
         this.calculatorService = calculatorService;
         this.title = 'Mi Calculadora';
     }
     AppComponent.prototype.eval = function (expression) {
         //El operador this is necesario para indicar el ambito de la variable que se queire settear
-        this.res = this.calculatorService.evaluate(expression);
+        //this.res = this.calculatorService.evaluate(expression);
+        var _this = this;
+        this.calculatorService.evaluate(expression).subscribe(function (result) {
+            _this.res = result;
+        });
     };
-    AppComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'my-app',
-            templateUrl: 'calculator.component.html',
-            styleUrls: ['calculator.component.css'],
-            providers: [calculator_service_1.CalculatorService]
-        }), 
-        __metadata('design:paramtypes', [calculator_service_1.CalculatorService])
-    ], AppComponent);
     return AppComponent;
 }());
+AppComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'my-app',
+        templateUrl: 'calculator.component.html',
+        styleUrls: ['calculator.component.css'],
+        providers: [calculator_service_1.CalculatorService]
+    }),
+    __metadata("design:paramtypes", [http_1.Http, calculator_service_1.CalculatorService])
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

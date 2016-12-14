@@ -8,19 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var Rx_1 = require("rxjs/Rx");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
 var CalculatorService = (function () {
-    function CalculatorService() {
+    function CalculatorService(http) {
+        this.http = http;
     }
-    //constructor(private http: Http) {}
-    CalculatorService.prototype.evaluate = function (expression) {
-        return eval(expression);
+    CalculatorService.prototype.evaluate = function (exp) {
+        return this.http.get("http://localhost:8080/evaluate?expression=4%2b3")
+            .map(function (responseData) {
+            console.log("responseData:" + responseData);
+            return responseData.json().content;
+        })
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
     };
-    CalculatorService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], CalculatorService);
     return CalculatorService;
 }());
+CalculatorService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], CalculatorService);
 exports.CalculatorService = CalculatorService;
 //# sourceMappingURL=calculator.service.js.map
