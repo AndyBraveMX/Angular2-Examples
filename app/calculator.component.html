@@ -4,6 +4,7 @@
 	<input [(ngModel)]="expression" placeholder="7+5*2" #bid>
 <div>
 	<button (click)='eval(bid.value)'>Evaluate</button>
+	<button (click)='evalRest(bid.value)'>Evaluate</button>
 </div>
 <label id="res">Resultado:</label>
 <h2>{{res}}</h2>

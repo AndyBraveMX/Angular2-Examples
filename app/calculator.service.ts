@@ -10,7 +10,7 @@ export class CalculatorService {
 
 	constructor(private http: Http){}
 
-	evaluate(exp : string) :Observable<string>{
+	evaluateRest(exp : string) :Observable<string>{
 		let params: URLSearchParams = new URLSearchParams();
 		params.set('expression', exp);
 
@@ -22,7 +22,10 @@ export class CalculatorService {
 			return responseData.json().content;
 		})
 		.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-
 	}
+
+	evaluate(expression:string):string{
+ 		return eval(expression);
+ 	}
 
 }

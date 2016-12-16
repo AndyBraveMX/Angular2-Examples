@@ -18,15 +18,17 @@ export class AppComponent {
 	//sin embargo para fines demostrativos y de práctica se separa en un servicio
     constructor(private http: Http, private calculatorService: CalculatorService) {}
 
-    	eval(expression:string){
+    eval(expression:string){
     	//El operador this is necesario para indicar el ambito de la variable que se queire settear
-    	//this.res = this.calculatorService.evaluate(expression);
+    	this.res = "Sin rest " + this.calculatorService.evaluate(expression);
+    }
 
-    	this.calculatorService.evaluate(expression).subscribe(
-    		result =>{
-    			this.res = result;
-    		}
-    	);
+    evalRest(expression:string){
+        this.calculatorService.evaluateRest(expression).subscribe(
+            result =>{
+                this.res = "Con Rest: " + result;
+            }
+        );
     }
 
 }
